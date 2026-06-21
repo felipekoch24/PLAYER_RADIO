@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Elite - Multi-Perfil</title>
+    <style>
+        body {
+            background-color: #080808;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            gap: 20px;
+        }
+
+        .profile-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        .profile-btn {
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            background: #111;
+            transition: all 0.3s ease;
+        }
+        #btn-perfil-pai { color: #ff9900; border: 2px solid #ff9900; }
+        #btn-perfil-pai:hover, #btn-perfil-pai.active { background: #ff9900; color: #000; box-shadow: 0 0 15px #ff9900; }
+        
+        #btn-perfil-gamer { color: #00ff41; border: 2px solid #00ff41; }
+        #btn-perfil-gamer:hover, #btn-perfil-gamer.active { background: #00ff41; color: #000; box-shadow: 0 0 15px #00ff41; }
+
+        .panel {
+            background: #111;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            width: 340px;
+            display: none;
+        }
+
+        .retro-zone { border: 2px solid #ff9900; box-shadow: 0 0 15px rgba(255, 153, 0, 0.2); }
+        .retro-zone h2 { color: #ff9900; text-shadow: 0 0 8px #ff9900; margin: 0 0 20px 0; font-size: 18px; }
+        .retro-zone .station-btn, .retro-zone .link-btn { color: #ff9900; border: 1px solid #ff9900; }
+        .retro-zone .station-btn:hover, .retro-zone .station-btn.active, .retro-zone .link-btn:hover { background: #ff9900; color: #000; box-shadow: 0 0 12px #ff9900; }
+
+        .gamer-zone { border: 2px solid #00ff41; box-shadow: 0 0 15px rgba(0, 255, 65, 0.2); }
+        .gamer-zone h2 { color: #00ff41; text-shadow: 0 0 8px #00ff41; margin: 0 0 20px 0; font-size: 18px; }
+        .gamer-zone .station-btn { color: #00ff41; border: 1px solid #00ff41; }
+        .gamer-zone .station-btn:hover, .gamer-zone .station-btn.active { background: #00ff41; color: #000; box-shadow: 0 0 12px #00ff41; }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .station-btn, .link-btn {
+            background-color: #000;
+            padding: 12px;
+            font-size: 13px;
+            font-family: inherit;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: block;
+        }
+        audio {
+            width: 390px;
+            margin-top: 10px;
+        }
+        #status-display {
+            color: #aaa;
+            font-size: 12px;
+            background: #000;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            width: 370px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-selector">
+        <button id="btn-perfil-pai" class="profile-btn" onclick="selectProfile('pai')">MODO PAI</button>
+        <button id="btn-perfil-gamer" class="profile-btn" onclick="selectProfile('gamer')">MODO GAMER</button>
+    </div>
+
+    <div id="painel-pai" class="panel retro-zone">
+        <h2>[ ESTAÇÕES DO PAI ]</h2>
+        <div class="btn-group">
+            <button class="station-btn" onclick="changeStation('https://stm5.painelcast.com:7574/stream', this)">CATÓLICA</button>
+            
+            <a href="https://radiosaovivo.net/gaucha/" target="_blank" class="link-btn" onclick="stopNativeAudio()">RÁDIO GAÚCHA ZH 🌐</a>
+            
+            <a href="https://radiosaovivo.net/grenal-fm/" target="_blank" class="link-btn" onclick="stopNativeAudio()">RÁDIO GRENAL 🌐</a>
+            
+            <button class="station-btn" onclick="changeStation('https://servidor16-3.brlogic.com:7614/live', this)">RÁDIO PÁTRIA GAÚCHA</button>
+            <button class="station-btn" onclick="changeStation('https://live.hunter.fm/modasertaneja_stream?ag=mp3', this)">MODA SERTANEJA</button>
+            <button class="station-btn" onclick="changeStation('https://live.hunter.fm/sertanejo_stream?ag=mp3', this)">SERTANEJO</button>
+        </div>
+    </div>
+
+    <div id="painel-gamer" class="panel gamer-zone">
+        <h2>[ MODO GAMER ]</h2>
+        <div class="btn-group">
+            <button class="station-btn" onclick="changeStation('https://live.brasilhits.com/listen/brasilhits-pop/mp3', this)">BRASIL HITS</button>
+            <button class="station-btn" onclick="changeStation('https://live.hunter.fm/sertanejo_stream?ag=mp3', this)">SERTANEJO</button>
+            <button class="station-btn" onclick="changeStation('https://live.hunter.fm/tropical_stream?ag=mp3', this)">TROPICAL</button>
+        </div>
+    </div>
+
+    <audio id="audio" controls></audio>
+    <div id="status-display">Status: Inicializando...</div>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const statusDisplay = document.getElementById('status-display');
+
+        function selectProfile(profile) {
+            document.getElementById('painel-pai').style.display = 'none';
+            document.getElementById('painel-gamer').style.display = 'none';
+            document.getElementById('btn-perfil-pai').classList.remove('active');
+            document.getElementById('btn-perfil-gamer').classList.remove('active');
+
+            if (profile === 'pai') {
+                document.getElementById('btn-perfil-pai').classList.add('active');
+                document.getElementById('painel-pai').style.display = 'block';
+            } else {
+                document.getElementById('btn-perfil-gamer').classList.add('active');
+                document.getElementById('painel-gamer').style.display = 'block';
+                profile = 'gamer';
+            }
+            localStorage.setItem('perfilSelecionado', profile);
+            statusDisplay.innerText = `Modo Ativo: ${profile.toUpperCase()}. Selecione uma rádio.`;
+        }
+
+        function stopNativeAudio() {
+            audio.pause();
+            audio.src = "";
+            document.querySelectorAll('.station-btn').forEach(btn => btn.classList.remove('active'));
+            statusDisplay.innerText = "Abrindo rádio externa na internet...";
+        }
+
+        function changeStation(url, button) {
+            document.querySelectorAll('.station-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            audio.src = url;
+            statusDisplay.innerText = `Conectando em ${button.innerText}...`;
+            
+            audio.play()
+                .then(() => {
+                    statusDisplay.innerText = `Tocando agora: ${button.innerText}`;
+                })
+                .catch(e => {
+                    statusDisplay.innerText = "Clique no Play do reprodutor inferior para iniciar.";
+                });
+        }
+
+        const salvo = localStorage.getItem('perfilSelecionado') || 'gamer';
+        selectProfile(salvo);
+    </script>
+</body>
+</html>
