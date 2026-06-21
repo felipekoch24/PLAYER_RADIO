@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Elite - Multi-Perfil</title>
-    <!-- Biblioteca necessária para streams HLS (.m3u8) -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         body { background-color: #080808; font-family: 'Courier New', Courier, monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; gap: 20px; }
@@ -14,12 +13,13 @@
         #btn-perfil-pai.active { background: #ff9900; color: #000; box-shadow: 0 0 15px #ff9900; }
         #btn-perfil-gamer { color: #00ff41; border: 2px solid #00ff41; }
         #btn-perfil-gamer.active { background: #00ff41; color: #000; box-shadow: 0 0 15px #00ff41; }
-        .panel { background: #111; padding: 25px; border-radius: 8px; text-align: center; width: 340px; display: none; }
+        .panel { background: #111; padding: 25px; border-radius: 8px; text-align: center; width: 380px; display: none; }
         .retro-zone { border: 2px solid #ff9900; }
         .gamer-zone { border: 2px solid #00ff41; }
         .btn-group { display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; }
-        .station-btn { background-color: #000; padding: 12px; font-size: 13px; cursor: pointer; font-weight: bold; border-radius: 4px; text-transform: uppercase; border: 1px solid #555; color: #fff; transition: 0.3s; }
-        .station-btn:hover, .station-btn.active { border-color: inherit; background: inherit; color: #000; box-shadow: 0 0 10px; }
+        .station-btn { background-color: #000; padding: 10px; cursor: pointer; border-radius: 4px; border: 1px solid #555; color: #fff; transition: 0.3s; display: flex; align-items: center; gap: 10px; text-transform: uppercase; font-weight: bold; }
+        .station-btn img { width: 30px; height: 30px; border-radius: 4px; object-fit: cover; }
+        .station-btn:hover, .station-btn.active { border-color: inherit; background: #222; box-shadow: 0 0 10px; }
         audio { width: 390px; margin-top: 10px; }
         #status-display { color: #aaa; font-size: 12px; background: #000; padding: 10px; border-radius: 4px; border: 1px solid #333; width: 370px; text-align: center; }
     </style>
@@ -34,29 +34,29 @@
     <div id="painel-pai" class="panel retro-zone">
         <h2 style="color: #ff9900;">[ ESTAÇÕES DO PAI ]</h2>
         <div class="btn-group">
-            <button class="station-btn" onclick="changeStation('https://wms5.webradios.com.br:18994/8994', this)">ECLUSA FM BRS</button>
-            <button class="station-btn" onclick="changeStation('https://stm01.virtualcast.com.br:8404/popularteutonia', this)">POPULAR TEUTÔNIA</button>
-            <button class="station-btn" onclick="changeStation('https://cast4.zadax.com.br:6295/live', this)">GERMÂNIA FM</button>
-            <button class="station-btn" onclick="changeStation('https://liverdgaupoa.rbsdirect.com.br/primary/gaucha_rbs.sdp/playlist.m3u8', this)">RÁDIO GAÚCHA</button>
-            <button class="station-btn" onclick="changeStation('https://liverdgaupoa.rbsdirect.com.br/primary/gaucha_rbs.sdp/playlist.m3u8', this)">GAÚCHA ZH NOTÍCIA</button>
-            <button class="station-btn" onclick="changeStation('https://grenal.audiostream.com.br:20000/mp3', this)">RÁDIO GRENAL</button>
-            <button class="station-btn" onclick="changeStation('https://liverdatlpoa.rbsdirect.com.br/primary/atl_poa.sdp/playlist.m3u8', this)">ATLÂNTIDA POA</button>
-            <button class="station-btn" onclick="changeStation('https://streaming.veloturbo.com.br:8000/encanto.aac', this)">ENCANTO FM</button>
-            <button class="station-btn" onclick="changeStation('https://streaming.veloturbo.com.br:8000/emocao.aac', this)">EMOÇÃO FM</button>
-            <button class="station-btn" onclick="changeStation('https://stm5.painelcast.com:7574/stream', this)">CATÓLICA</button>
-            <button class="station-btn" onclick="changeStation('https://servidor16-3.brlogic.com:7614/live', this)">RÁDIO PÁTRIA GAÚCHA</button>
-            <button class="station-btn" onclick="changeStation('https://live.hunter.fm/modasertaneja_stream?ag=mp3', this)">MODA SERTANEJA</button>
+            <button class="station-btn" onclick="changeStation('https://wms5.webradios.com.br:18994/8994', this)"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzcChL6KZLhVAoRlXetJbn9pA4xI6gwGWujzm851okCQ&s=10">ECLUSA FM BRS</button>
+            <button class="station-btn" onclick="changeStation('https://stm01.virtualcast.com.br:8404/popularteutonia', this)"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHeC4yw4JWqrc6c3RKK7vJVKe86Zjs7ol0XflJaZ-xUw&s=10">POPULAR TEUTÔNIA</button>
+            <button class="station-btn" onclick="changeStation('https://cast4.zadax.com.br:6295/live', this)"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiQ9xapJqyuH10SA6Ga04tF2APh8EZIep38KfL14Z1IL0ytwxnenHRxbU&s=10">GERMÂNIA FM</button>
+            <button class="station-btn" onclick="changeStation('https://liverdgaupoa.rbsdirect.com.br/primary/gaucha_rbs.sdp/playlist.m3u8', this)"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUyoDnxyfZ11BDD3gH9c6puqmDzStr1IWFzo7ToxzAYg&s">RÁDIO GAÚCHA</button>
+            <button class="station-btn" onclick="changeStation('https://liverdgaupoa.rbsdirect.com.br/primary/gaucha_rbs.sdp/playlist.m3u8', this)"><img src="https://static2.mytuner.mobi/media/tvos_radios/LnQzp2wQMU.jpg">GAÚCHA ZH NOTÍCIA</button>
+            <button class="station-btn" onclick="changeStation('https://grenal.audiostream.com.br:20000/mp3', this)"><img src="https://play-lh.googleusercontent.com/gygILPrRDheabGFZPVfOjFDgNNJHuY8EmqaMUKbja_frWhYgDQGspbvSgvuW9G_3CvP7MZyqxIJzed8G3EDL">RÁDIO GRENAL</button>
+            <button class="station-btn" onclick="changeStation('https://liverdatlpoa.rbsdirect.com.br/primary/atl_poa.sdp/playlist.m3u8', this)"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNtjQ0X3dvT7-I9qjTnDUW6mc1s2MX_kbxfK9m4h09Zq2eR_SwiEPFY6q2&s=10">ATLÂNTIDA POA</button>
+            <button class="station-btn" onclick="changeStation('https://streaming.veloturbo.com.br:8000/encanto.aac', this)"><img src="https://encantofm.com.br/wp-content/uploads/2025/04/cropped-favicon-170x170.png">ENCANTO FM</button>
+            <button class="station-btn" onclick="changeStation('https://streaming.veloturbo.com.br:8000/emocao.aac', this)"><img src="https://img.radios.com.br/radio/xl/radio17616_1551177534.jpg">EMOÇÃO FM</button>
+            <button class="station-btn" onclick="changeStation('https://stm5.painelcast.com:7574/stream', this)"><img src="https://static2.mytuner.mobi/media/tvos_radios/752/radio-catolica-brazil.325976a8.jpg">CATÓLICA</button>
+            <button class="station-btn" onclick="changeStation('https://servidor16-3.brlogic.com:7614/live', this)"><img src="https://public-rf-upload.minhawebradio.net/160647/mobileicon/ec398c0d295ae67217744a1d16016c3e.jpg">RÁDIO PÁTRIA GAÚCHA</button>
+            <button class="station-btn" onclick="changeStation('https://live.hunter.fm/modasertaneja_stream?ag=mp3', this)"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9jTbzl7oC8AP1Q-fXmhbe4PBypaFucwFZAhvg_0n0rw&s=10">MODA SERTANEJA</button>
         </div>
     </div>
 
     <div id="painel-gamer" class="panel gamer-zone">
         <h2 style="color: #00ff41;">[ MODO GAMER ]</h2>
         <div class="btn-group">
-            <button class="station-btn" onclick="changeStation('https://hts01.brascast.com:9752/live', this)">ELETRÔNICA POA</button>
-            <button class="station-btn" onclick="changeStation('https://virtues.live:8234/stream', this)">VENUS FM</button>
-            <button class="station-btn" onclick="changeStation('https://stream-287.surfernetwork.com/c45wbq2us3buv', this)">JOVEM PAN</button>
-            <button class="station-btn" onclick="changeStation('https://8330.brasilstream.com.br/stream?origem=site', this)">TROPICAL FM</button>
-            <button class="station-btn" onclick="changeStation('https://live.brasilhits.com/listen/brasilhits-pop/mp3', this)">BRASIL HITS</button>
+            <button class="station-btn" onclick="changeStation('https://hts01.brascast.com:9752/live', this)"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJK6gahwECiAxHxXLNt_LCe7jqEZ5Y2ahS1JNx1OKdlaj8zn7BIdXh2Q6R&s=10">ELETRÔNICA POA</button>
+            <button class="station-btn" onclick="changeStation('https://virtues.live:8234/stream', this)"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREqiEvOV95mGsLhFUaV3Fa9hNv7ktjlcQG9hCPNCADB07EhjFO27orsuU&s=10">VENUS FM</button>
+            <button class="station-btn" onclick="changeStation('https://stream-287.surfernetwork.com/c45wbq2us3buv', this)"><img src="https://play-lh.googleusercontent.com/zRd7xwhP2AJNlFCzWvOoYlCvkjK2VjeH58lsfMKe8CyOfk7gGzLgXyf6u-11kroRjKFPvMhojiCDNYjTOlTmeH4">JOVEM PAN</button>
+            <button class="station-btn" onclick="changeStation('https://8330.brasilstream.com.br/stream?origem=site', this)"><img src="https://www.tropical.fm.br/storage/images/cache/principal-logo-1657289879-350-71196cf6.png">TROPICAL FM</button>
+            <button class="station-btn" onclick="changeStation('https://live.brasilhits.com/listen/brasilhits-pop/mp3', this)"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYrCZyl2irlpYo4Kj7RV-cPU5XfCf_ZHzRyVVcmZ7nF3EloKb3X3IThhM&s=10">BRASIL HITS</button>
         </div>
     </div>
 
@@ -79,20 +79,18 @@
         function changeStation(url, button) {
             document.querySelectorAll('.station-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            statusDisplay.innerText = `Conectando em ${button.innerText}...`;
-
+            statusDisplay.innerText = `Conectando...`;
+            if (hls) hls.destroy();
             if (url.includes('.m3u8')) {
-                if (hls) hls.destroy();
                 hls = new Hls();
                 hls.loadSource(url);
                 hls.attachMedia(audio);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => audio.play());
             } else {
-                if (hls) hls.destroy();
                 audio.src = url;
                 audio.play();
             }
-            statusDisplay.innerText = `Tocando agora: ${button.innerText}`;
+            statusDisplay.innerText = `Tocando: ${button.innerText.trim()}`;
         }
 
         const salvo = localStorage.getItem('perfilSelecionado') || 'gamer';
