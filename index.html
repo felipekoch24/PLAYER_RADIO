@@ -4,90 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Elite - Multi-Perfil</title>
+    <!-- Biblioteca necessária para streams HLS (.m3u8) -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body {
-            background-color: #080808;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            gap: 20px;
-        }
-
-        .profile-selector {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-        .profile-btn {
-            padding: 15px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 6px;
-            background: #111;
-            transition: all 0.3s ease;
-        }
+        body { background-color: #080808; font-family: 'Courier New', Courier, monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; gap: 20px; }
+        .profile-selector { display: flex; gap: 15px; margin-bottom: 10px; }
+        .profile-btn { padding: 15px 30px; font-size: 16px; font-weight: bold; cursor: pointer; border-radius: 6px; background: #111; transition: all 0.3s ease; }
         #btn-perfil-pai { color: #ff9900; border: 2px solid #ff9900; }
-        #btn-perfil-pai:hover, #btn-perfil-pai.active { background: #ff9900; color: #000; box-shadow: 0 0 15px #ff9900; }
-        
+        #btn-perfil-pai.active { background: #ff9900; color: #000; box-shadow: 0 0 15px #ff9900; }
         #btn-perfil-gamer { color: #00ff41; border: 2px solid #00ff41; }
-        #btn-perfil-gamer:hover, #btn-perfil-gamer.active { background: #00ff41; color: #000; box-shadow: 0 0 15px #00ff41; }
-
-        .panel {
-            background: #111;
-            padding: 25px;
-            border-radius: 8px;
-            text-align: center;
-            width: 340px;
-            display: none;
-        }
-
-        .retro-zone { border: 2px solid #ff9900; box-shadow: 0 0 15px rgba(255, 153, 0, 0.2); }
-        .retro-zone h2 { color: #ff9900; text-shadow: 0 0 8px #ff9900; margin: 0 0 20px 0; font-size: 18px; }
-        .retro-zone .station-btn, .retro-zone .link-btn { color: #ff9900; border: 1px solid #ff9900; }
-        .retro-zone .station-btn:hover, .retro-zone .station-btn.active, .retro-zone .link-btn:hover { background: #ff9900; color: #000; box-shadow: 0 0 12px #ff9900; }
-
-        .gamer-zone { border: 2px solid #00ff41; box-shadow: 0 0 15px rgba(0, 255, 65, 0.2); }
-        .gamer-zone h2 { color: #00ff41; text-shadow: 0 0 8px #00ff41; margin: 0 0 20px 0; font-size: 18px; }
-        .gamer-zone .station-btn { color: #00ff41; border: 1px solid #00ff41; }
-        .gamer-zone .station-btn:hover, .gamer-zone .station-btn.active { background: #00ff41; color: #000; box-shadow: 0 0 12px #00ff41; }
-
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .station-btn, .link-btn {
-            background-color: #000;
-            padding: 12px;
-            font-size: 13px;
-            font-family: inherit;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-            text-transform: uppercase;
-            text-decoration: none;
-            display: block;
-        }
-        audio {
-            width: 390px;
-            margin-top: 10px;
-        }
-        #status-display {
-            color: #aaa;
-            font-size: 12px;
-            background: #000;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #333;
-            width: 370px;
-            text-align: center;
-        }
+        #btn-perfil-gamer.active { background: #00ff41; color: #000; box-shadow: 0 0 15px #00ff41; }
+        .panel { background: #111; padding: 25px; border-radius: 8px; text-align: center; width: 340px; display: none; }
+        .retro-zone { border: 2px solid #ff9900; }
+        .gamer-zone { border: 2px solid #00ff41; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; }
+        .station-btn { background-color: #000; padding: 12px; font-size: 13px; cursor: pointer; font-weight: bold; border-radius: 4px; text-transform: uppercase; border: 1px solid #555; color: #fff; transition: 0.3s; }
+        .station-btn:hover, .station-btn.active { border-color: inherit; background: inherit; color: #000; box-shadow: 0 0 10px; }
+        audio { width: 390px; margin-top: 10px; }
+        #status-display { color: #aaa; font-size: 12px; background: #000; padding: 10px; border-radius: 4px; border: 1px solid #333; width: 370px; text-align: center; }
     </style>
 </head>
 <body>
@@ -98,75 +32,66 @@
     </div>
 
     <div id="painel-pai" class="panel retro-zone">
-        <h2>[ ESTAÇÕES DO PAI ]</h2>
+        <h2 style="color: #ff9900;">[ ESTAÇÕES DO PAI ]</h2>
         <div class="btn-group">
+            <button class="station-btn" onclick="changeStation('https://wms5.webradios.com.br:18994/8994', this)">ECLUSA FM BRS</button>
+            <button class="station-btn" onclick="changeStation('https://stm01.virtualcast.com.br:8404/popularteutonia', this)">POPULAR TEUTÔNIA</button>
+            <button class="station-btn" onclick="changeStation('https://cast4.zadax.com.br:6295/live', this)">GERMÂNIA FM</button>
+            <button class="station-btn" onclick="changeStation('https://liverdgaupoa.rbsdirect.com.br/primary/gaucha_rbs.sdp/playlist.m3u8', this)">RÁDIO GAÚCHA</button>
+            <button class="station-btn" onclick="changeStation('https://liverdgaupoa.rbsdirect.com.br/primary/gaucha_rbs.sdp/playlist.m3u8', this)">GAÚCHA ZH NOTÍCIA</button>
+            <button class="station-btn" onclick="changeStation('https://grenal.audiostream.com.br:20000/mp3', this)">RÁDIO GRENAL</button>
+            <button class="station-btn" onclick="changeStation('https://liverdatlpoa.rbsdirect.com.br/primary/atl_poa.sdp/playlist.m3u8', this)">ATLÂNTIDA POA</button>
+            <button class="station-btn" onclick="changeStation('https://streaming.veloturbo.com.br:8000/encanto.aac', this)">ENCANTO FM</button>
+            <button class="station-btn" onclick="changeStation('https://streaming.veloturbo.com.br:8000/emocao.aac', this)">EMOÇÃO FM</button>
             <button class="station-btn" onclick="changeStation('https://stm5.painelcast.com:7574/stream', this)">CATÓLICA</button>
-            
-            <a href="https://radiosaovivo.net/gaucha/" target="_blank" class="link-btn" onclick="stopNativeAudio()">RÁDIO GAÚCHA ZH 🌐</a>
-            
-            <a href="https://radiosaovivo.net/grenal-fm/" target="_blank" class="link-btn" onclick="stopNativeAudio()">RÁDIO GRENAL 🌐</a>
-            
             <button class="station-btn" onclick="changeStation('https://servidor16-3.brlogic.com:7614/live', this)">RÁDIO PÁTRIA GAÚCHA</button>
             <button class="station-btn" onclick="changeStation('https://live.hunter.fm/modasertaneja_stream?ag=mp3', this)">MODA SERTANEJA</button>
-            <button class="station-btn" onclick="changeStation('https://live.hunter.fm/sertanejo_stream?ag=mp3', this)">SERTANEJO</button>
         </div>
     </div>
 
     <div id="painel-gamer" class="panel gamer-zone">
-        <h2>[ MODO GAMER ]</h2>
+        <h2 style="color: #00ff41;">[ MODO GAMER ]</h2>
         <div class="btn-group">
+            <button class="station-btn" onclick="changeStation('https://virtues.live:8234/stream', this)">VENUS FM</button>
+            <button class="station-btn" onclick="changeStation('https://stream-287.surfernetwork.com/c45wbq2us3buv', this)">JOVEM PAN</button>
+            <button class="station-btn" onclick="changeStation('https://8330.brasilstream.com.br/stream?origem=site', this)">TROPICAL FM</button>
             <button class="station-btn" onclick="changeStation('https://live.brasilhits.com/listen/brasilhits-pop/mp3', this)">BRASIL HITS</button>
-            <button class="station-btn" onclick="changeStation('https://live.hunter.fm/sertanejo_stream?ag=mp3', this)">SERTANEJO</button>
-            <button class="station-btn" onclick="changeStation('https://live.hunter.fm/tropical_stream?ag=mp3', this)">TROPICAL</button>
         </div>
     </div>
 
-    <audio id="audio" controls></audio>
-    <div id="status-display">Status: Inicializando...</div>
+    <audio id="audio" controls autoplay></audio>
+    <div id="status-display">Status: Pronto</div>
 
     <script>
         const audio = document.getElementById('audio');
         const statusDisplay = document.getElementById('status-display');
+        let hls;
 
         function selectProfile(profile) {
-            document.getElementById('painel-pai').style.display = 'none';
-            document.getElementById('painel-gamer').style.display = 'none';
-            document.getElementById('btn-perfil-pai').classList.remove('active');
-            document.getElementById('btn-perfil-gamer').classList.remove('active');
-
-            if (profile === 'pai') {
-                document.getElementById('btn-perfil-pai').classList.add('active');
-                document.getElementById('painel-pai').style.display = 'block';
-            } else {
-                document.getElementById('btn-perfil-gamer').classList.add('active');
-                document.getElementById('painel-gamer').style.display = 'block';
-                profile = 'gamer';
-            }
+            document.getElementById('painel-pai').style.display = (profile === 'pai') ? 'block' : 'none';
+            document.getElementById('painel-gamer').style.display = (profile === 'gamer') ? 'block' : 'none';
+            document.getElementById('btn-perfil-pai').className = 'profile-btn' + (profile === 'pai' ? ' active' : '');
+            document.getElementById('btn-perfil-gamer').className = 'profile-btn' + (profile === 'gamer' ? ' active' : '');
             localStorage.setItem('perfilSelecionado', profile);
-            statusDisplay.innerText = `Modo Ativo: ${profile.toUpperCase()}. Selecione uma rádio.`;
-        }
-
-        function stopNativeAudio() {
-            audio.pause();
-            audio.src = "";
-            document.querySelectorAll('.station-btn').forEach(btn => btn.classList.remove('active'));
-            statusDisplay.innerText = "Abrindo rádio externa na internet...";
         }
 
         function changeStation(url, button) {
             document.querySelectorAll('.station-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            
-            audio.src = url;
             statusDisplay.innerText = `Conectando em ${button.innerText}...`;
-            
-            audio.play()
-                .then(() => {
-                    statusDisplay.innerText = `Tocando agora: ${button.innerText}`;
-                })
-                .catch(e => {
-                    statusDisplay.innerText = "Clique no Play do reprodutor inferior para iniciar.";
-                });
+
+            if (url.includes('.m3u8')) {
+                if (hls) hls.destroy();
+                hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(audio);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => audio.play());
+            } else {
+                if (hls) hls.destroy();
+                audio.src = url;
+                audio.play();
+            }
+            statusDisplay.innerText = `Tocando agora: ${button.innerText}`;
         }
 
         const salvo = localStorage.getItem('perfilSelecionado') || 'gamer';
