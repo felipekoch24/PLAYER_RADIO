@@ -1,0 +1,16 @@
+[
+  { "nome": "ECLUSA FM BRS", "url": "https://wms5.webradios.com.br:18994/8994", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzcChL6KZLhVAoRlXetJbn9pA4xI6gwGWujzm851okCQ&s=10" },
+  { "nome": "POPULAR TEUTÔNIA", "url": "https://stm01.virtualcast.com.br:8404/popularteutonia", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHeC4yw4JWqrc6c3RKK7vJVKe86Zjs7ol0XflJaZ-xUw&s=10" },
+  { "nome": "GERMÂNIA FM", "url": "https://cast4.zadax.com.br:6295/live", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiQ9xapJqyuH10SA6Ga04tF2APh8EZIep38KfL14Z1IL0ytwxnenHRxbU&s=10" },
+  { "nome": "GAÚCHA ZH NOTÍCIA", "url": "https://liverdgaupoa.rbsdirect.com.br/primary/gaucha_rbs.sdp/playlist.m3u8", "logo": "https://static2.mytuner.mobi/media/tvos_radios/LnQzp2wQMU.jpg" },
+  { "nome": "RÁDIO GRENAL", "url": "https://grenal.audiostream.com.br:20000/mp3", "logo": "https://play-lh.googleusercontent.com/gygILPrRDheabGFZPVfOjFDgNNJHuY8EmqaMUKbja_frWhYgDQGspbvSgvuW9G_3CvP7MZyqxIJzed8G3EDL" },
+  { "nome": "ATLÂNTIDA POA", "url": "https://liverdatlpoa.rbsdirect.com.br/primary/atl_poa.sdp/playlist.m3u8", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNtjQ0X3dvT7-I9qjTnDUW6mc1s2MX_kbxfK9m4h09Zq2eR_SwiEPFY6q2&s=10" },
+  { "nome": "ENCANTO FM", "url": "https://streaming.veloturbo.com.br:8000/encanto.aac", "logo": "https://encantofm.com.br/wp-content/uploads/2025/04/cropped-favicon-170x170.png" },
+  { "nome": "EMOÇÃO FM", "url": "https://streaming.veloturbo.com.br:8000/emocao.aac", "logo": "https://img.radios.com.br/radio/xl/radio17616_1551177534.jpg" },
+  { "nome": "MODA SERTANEJA", "url": "https://live.hunter.fm/modasertaneja_stream?ag=mp3", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9jTbzl7oC8AP1Q-fXmhbe4PBypaFucwFZAhvg_0n0rw&s=10" },
+  { "nome": "ELETRÔNICA POA", "url": "https://hts01.brascast.com:9752/live", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJK6gahwECiAxHxXLNt_LCe7jqEZ5Y2ahS1JNx1OKdlaj8zn7BIdXh2Q6R&s=10" },
+  { "nome": "VENUS FM", "url": "https://virtues.live:8234/stream", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREqiEvOV95mGsLhFUaV3Fa9hNv7ktjlcQG9hCPNCADB07EhjFO27orsuU&s=10" },
+  { "nome": "JOVEM PAN", "url": "https://stream-287.surfernetwork.com/c45wbq2us3buv", "logo": "https://play-lh.googleusercontent.com/zRd7xwhP2AJNlFCzWvOoYlCvkjK2VjeH58lsfMKe8CyOfk7gGzLgXyf6u-11kroRjKFPvMhojiCDNYjTOlTmeH4" },
+  { "nome": "TROPICAL FM", "url": "https://8330.brasilstream.com.br/stream?origem=site", "logo": "https://www.tropical.fm.br/storage/images/cache/principal-logo-1657289879-350-71196cf6.png" },
+  { "nome": "BRASIL HITS", "url": "https://live.brasilhits.com/listen/brasilhits-pop/mp3", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYrCZyl2irlpYo4Kj7RV-cPU5XfCf_ZHzRyVVcmZ7nF3EloKb3X3IThhM&s=10" }
+]
